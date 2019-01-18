@@ -72,6 +72,14 @@ const styles = theme => ({
   },
 });
 
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
+
 function Header(props) {
   const { classes } = props;
   const [value, setValue] = React.useState(0);
@@ -109,12 +117,19 @@ function Header(props) {
           </div>
         </Toolbar>
       </AppBar>
+      {value === 0 && <TabContainer>Item One</TabContainer>}
+      {value === 1 && <TabContainer>Item Two</TabContainer>}
+      {value === 2 && <TabContainer>Item Three</TabContainer>}
     </div>
   );
 }
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
+};
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default withStyles(styles)(Header);
