@@ -9,6 +9,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 const styles = theme => ({
   root: {
@@ -70,8 +72,21 @@ const styles = theme => ({
   },
 });
 
-function SearchAppBar(props) {
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
+
+function Header(props) {
   const { classes } = props;
+  const [value, setValue] = React.useState(0);
+  function handleChange(event, newValue) {
+    setValue(newValue);
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -80,8 +95,13 @@ function SearchAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-            Material-UI
+            Website
           </Typography>
+          <Tabs value={value} onChange={handleChange} style={{ marginLeft: '110px' }}>
+            <Tab label="Item One" />
+            <Tab label="Item Two" />
+            <Tab label="Item Three" />
+          </Tabs>
           <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -97,12 +117,19 @@ function SearchAppBar(props) {
           </div>
         </Toolbar>
       </AppBar>
+      {value === 0 && <TabContainer>Item One</TabContainer>}
+      {value === 1 && <TabContainer>Item Two</TabContainer>}
+      {value === 2 && <TabContainer>Item Three</TabContainer>}
     </div>
   );
 }
 
-SearchAppBar.propTypes = {
+Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SearchAppBar);
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default withStyles(styles)(Header);
