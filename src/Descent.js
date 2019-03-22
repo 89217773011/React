@@ -31,7 +31,7 @@ export class Descent extends React.Component {
                 </div> 
                 <button onClick = { this.addOneClick }>Add one</button>
                 <button onClick = { this.removeOneClick }>Remove one</button>
-                <Child data = { this.props.value }/>
+                <Child />
             </section>
         ) 
     }

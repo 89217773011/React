@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Descent } from './Descent';
 
-//const MyContext = React.createContext('defaultValue');
+export const MyContext = React.createContext('defaultValue');
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: ''
+      name: 'default'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,21 +20,21 @@ class App extends Component {
   }
 
   handleChange(e) {
-    console.log(e.targetValue);
+    console.log(e.target.value.toUpperCase());
     this.setState(
-      { name: e.target.value }
+      { name: e.target.value.toUpperCase() }
     )
   }
 
   render() {
     return (
-      <div>
+      <MyContext.Provider value = { this.state.name }>
         <form onSubmit = { this.handleSubmit }>
           <input type = 'text' value = { this.state.name } onChange = { this.handleChange }></input>
           <button>Submit</button>
         </form>
         <Descent value = { this.state.name }/>
-      </div>
+      </MyContext.Provider>
     );
   }
 }
