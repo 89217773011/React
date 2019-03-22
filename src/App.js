@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const MyContext = React.createContext('defaultValue');
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -11,7 +13,10 @@ class App extends Component {
   }
 
   addOneClick() {
-    this.setState(state => state.click++ );
+    this.setState((prevState) => {
+      return  { click: prevState.click + 1 };
+      }
+    );
   }
 
   removeOneClick() {
@@ -20,13 +25,13 @@ class App extends Component {
 
   render() {
     return (
-      <section>
+      <Counter.Privider>
         <div style = {{ backgroundColor: 'green' }}>
           Click me {this.state.click}
         </div> 
         <button onClick = { this.addOneClick }>Add one</button>
         <button onClick = { this.removeOneClick }>Remove one</button>
-      </section>
+      </Counter.Privider>
     );
   }
 }
